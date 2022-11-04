@@ -1,0 +1,1 @@
+class EntryValue<K, V>(var key: K, var value: V)
