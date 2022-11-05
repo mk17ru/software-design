@@ -24,5 +24,4 @@ public class AddProductsServletTest extends BaseServletTest {
 		verify(httpServletResponse.getWriter()).println("OK");
 	}
 
-
 }

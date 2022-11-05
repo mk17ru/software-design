@@ -1,9 +1,7 @@
 package ru.akirakozov.sd.refactoring;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import ru.akirakozov.sd.refactoring.servlet.AddProductServlet;
-import ru.akirakozov.sd.refactoring.servlet.GetProductsServlet;
 import ru.akirakozov.sd.refactoring.servlet.QueryServlet;
 
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +43,6 @@ public class QueryProductsServletTest extends BaseServletTest {
 		));
 
 	}
-
 
 	private void addRequest(AddProductServlet addServlet, String name, String price) throws IOException {
 		initRequestMock(Map.of(

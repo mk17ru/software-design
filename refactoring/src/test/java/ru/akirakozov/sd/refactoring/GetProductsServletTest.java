@@ -25,5 +25,4 @@ public class GetProductsServletTest extends BaseServletTest {
 		verify(httpServletResponse.getWriter()).println("</body></html>");
 	}
 
-
 }

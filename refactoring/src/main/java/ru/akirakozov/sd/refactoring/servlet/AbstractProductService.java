@@ -8,6 +8,7 @@ import java.io.IOException;
 public abstract class AbstractProductService extends HttpServlet {
 
 	protected abstract void doGetImpl(HttpServletRequest request, HttpServletResponse response) throws IOException;
+
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.getWriter().println("<html><body>");
@@ -16,7 +17,5 @@ public abstract class AbstractProductService extends HttpServlet {
 		response.setContentType("text/html");
 		response.setStatus(HttpServletResponse.SC_OK);
 	}
-
-
 
 }

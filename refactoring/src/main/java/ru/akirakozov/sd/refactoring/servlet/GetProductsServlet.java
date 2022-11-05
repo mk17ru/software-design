@@ -1,17 +1,11 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
 import ru.akirakozov.sd.refactoring.dao.Dao;
-import ru.akirakozov.sd.refactoring.dao.ProductDao;
 import ru.akirakozov.sd.refactoring.entities.Product;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -19,18 +13,19 @@ import java.util.List;
  */
 public class GetProductsServlet extends AbstractProductService {
 
-    private final Dao<Product> productDao;
+	private final Dao<Product> productDao;
 
-    public GetProductsServlet(Dao<Product> productDao) {
-        this.productDao = productDao;
-    }
-    @Override
-    public void doGetImpl(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public GetProductsServlet(Dao<Product> productDao) {
+		this.productDao = productDao;
+	}
 
-        List<Product> products = productDao.getAll();
+	@Override
+	public void doGetImpl(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        for (Product product : products) {
-            response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
-        }
-    }
+		List<Product> products = productDao.getAll();
+
+		for (Product product : products) {
+			response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
+		}
+	}
 }
