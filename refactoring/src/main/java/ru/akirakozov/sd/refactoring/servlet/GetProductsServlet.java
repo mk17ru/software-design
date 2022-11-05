@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author akirakozov
  */
-public class GetProductsServlet extends HttpServlet {
+public class GetProductsServlet extends AbstractProductService {
 
     private final Dao<Product> productDao;
 
@@ -25,17 +25,12 @@ public class GetProductsServlet extends HttpServlet {
         this.productDao = productDao;
     }
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGetImpl(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         List<Product> products = productDao.getAll();
 
-        response.getWriter().println("<html><body>");
         for (Product product : products) {
             response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
         }
-        response.getWriter().println("</body></html>");
-
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
     }
 }

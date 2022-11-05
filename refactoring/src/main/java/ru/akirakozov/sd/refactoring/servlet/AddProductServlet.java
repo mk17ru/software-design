@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * @author akirakozov
  */
-public class AddProductServlet extends HttpServlet {
+public class AddProductServlet extends AbstractProductService {
 
 	private final Dao<Product> productDao;
 
@@ -21,14 +21,12 @@ public class AddProductServlet extends HttpServlet {
 	}
 
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void doGetImpl(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String name = request.getParameter("name");
 		long price = Long.parseLong(request.getParameter("price"));
 		Product product = new Product(name, price);
 		productDao.add(product);
 
-		response.setContentType("text/html");
-		response.setStatus(HttpServletResponse.SC_OK);
 		response.getWriter().println("OK");
 	}
 }
