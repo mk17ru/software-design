@@ -1,6 +1,7 @@
 package ru.akirakozov.sd.refactoring;
 
 import org.junit.jupiter.api.Test;
+import ru.akirakozov.sd.refactoring.dao.ProductDao;
 import ru.akirakozov.sd.refactoring.servlet.AddProductServlet;
 import ru.akirakozov.sd.refactoring.servlet.GetProductsServlet;
 
@@ -14,7 +15,7 @@ public class GetProductsServletTest extends BaseServletTest {
 
 	@Test
 	public void getProductTest() throws IOException {
-		GetProductsServlet servlet = new GetProductsServlet();
+		GetProductsServlet servlet = new GetProductsServlet(dao);
 		initRequestMock(Map.of());
 
 		servlet.doGet(httpServletRequest, httpServletResponse);

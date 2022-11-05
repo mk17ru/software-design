@@ -13,7 +13,7 @@ public class AddProductsServletTest extends BaseServletTest {
 
 	@Test
 	public void addProductTest() throws IOException {
-		AddProductServlet servlet = new AddProductServlet();
+		AddProductServlet servlet = new AddProductServlet(dao);
 		initRequestMock(Map.of(
 				"name", "shoes",
 				"price", "999"

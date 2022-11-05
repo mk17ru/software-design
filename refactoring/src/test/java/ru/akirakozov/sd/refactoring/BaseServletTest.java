@@ -5,6 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import ru.akirakozov.sd.refactoring.dao.Dao;
+import ru.akirakozov.sd.refactoring.dao.ProductDao;
+import ru.akirakozov.sd.refactoring.database.DatabaseProvider;
+import ru.akirakozov.sd.refactoring.database.DatabaseProviderImpl;
+import ru.akirakozov.sd.refactoring.entities.Product;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +31,14 @@ public class BaseServletTest {
 
 	protected HttpServletResponse httpServletResponse;
 
+	protected DatabaseProvider databaseProvider = new DatabaseProviderImpl();
+
+	protected Dao<Product> dao;
+
 	@BeforeEach
 	public void openMockito() throws SQLException {
 		MockitoAnnotations.openMocks(this);
+		dao = new ProductDao(databaseProvider);
 		try(Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
 			String sql = "DELETE FROM PRODUCT WHERE TRUE";
 			Statement stmt = c.createStatement();

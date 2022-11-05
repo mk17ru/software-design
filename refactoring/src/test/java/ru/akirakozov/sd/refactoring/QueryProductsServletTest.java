@@ -17,14 +17,14 @@ public class QueryProductsServletTest extends BaseServletTest {
 
 	@Test
 	public void queryProductTest() throws IOException {
-		AddProductServlet addServlet = new AddProductServlet();
+		AddProductServlet addServlet = new AddProductServlet(dao);
 		addRequest(addServlet, "kappa", "1001");
 		addRequest(addServlet, "puma", "2001");
 		addRequest(addServlet, "yum", "9");
 
 		verify(httpServletResponse).setStatus(HttpServletResponse.SC_OK);
 
-		QueryServlet servlet = new QueryServlet();
+		QueryServlet servlet = new QueryServlet(dao);
 
 		queryRequest(servlet, "max", Integer.MIN_VALUE, List.of(
 				"<h1>Product with max price: </h1>",

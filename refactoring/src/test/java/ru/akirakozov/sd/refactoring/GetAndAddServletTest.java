@@ -14,12 +14,12 @@ public class GetAndAddServletTest extends BaseServletTest {
 
 	@Test
 	public void addAndGetProductTest() throws IOException {
-		AddProductServlet addServlet = new AddProductServlet();
+		AddProductServlet addServlet = new AddProductServlet(dao);
 		addRequest(addServlet, "kappa", "1001");
 		addRequest(addServlet, "puma", "2001");
 		addRequest(addServlet, "yum", "9");
 
-		GetProductsServlet getServlet = new GetProductsServlet();
+		GetProductsServlet getServlet = new GetProductsServlet(dao);
 		initRequestMock(Map.of());
 
 		getServlet.doGet(httpServletRequest, httpServletResponse);
