@@ -1,43 +1,31 @@
 package ru.akirakozov.sd.refactoring.servlet;
 
-import javax.servlet.http.HttpServlet;
+import ru.akirakozov.sd.refactoring.dao.Dao;
+import ru.akirakozov.sd.refactoring.entities.Product;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.util.List;
 
 /**
  * @author akirakozov
  */
-public class GetProductsServlet extends HttpServlet {
+public class GetProductsServlet extends AbstractProductService {
 
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            try (Connection c = DriverManager.getConnection("jdbc:sqlite:test.db")) {
-                Statement stmt = c.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM PRODUCT");
-                response.getWriter().println("<html><body>");
+	private final Dao<Product> productDao;
 
-                while (rs.next()) {
-                    String  name = rs.getString("name");
-                    int price  = rs.getInt("price");
-                    response.getWriter().println(name + "\t" + price + "</br>");
-                }
-                response.getWriter().println("</body></html>");
+	public GetProductsServlet(Dao<Product> productDao) {
+		this.productDao = productDao;
+	}
 
-                rs.close();
-                stmt.close();
-            }
+	@Override
+	public void doGetImpl(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+		List<Product> products = productDao.getAll();
 
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-    }
+		for (Product product : products) {
+			response.getWriter().println(product.getName() + "\t" + product.getPrice() + "</br>");
+		}
+	}
 }
